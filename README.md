@@ -8,24 +8,16 @@
 - Recommended host distro for VM build: Ubuntu 24.04 LTS (minimal install)
 
 ## Current Position
-- Phase: Preparation
-- Book location: Chapters 1-4
-- Immediate focus: Choose safest build environment strategy before deep work
+- Phase: Toolchain Build
+- Book location: Chapter 5
+- Immediate focus: Start Chapter 5 temporary toolchain build (cross-compilation)
 
 ## Current Tasks
-- Decide build environment strategy: live USB with persistence vs VM-first on host
-- Choose isolation method that protects productive laptop (disk, bootloader, and host packages)
-- Pick final VM host distro choice (default: Ubuntu 24.04 LTS, alternative: Debian 12)
-- Skim LFS book through Chapter 4 (focus on goals and checkpoints, not every detail)
-- Use mentor-led Q&A after each section to confirm understanding
-- Check current `/bin/sh` symlink target and reconfigure it to Bash if needed
-- Re-run Ubuntu shell reconfiguration and choose Bash for `/bin/sh`
-- Re-run `version-check.sh` and confirm all checks are OK
-- Answer setup checkpoint questions:
-  - Host distro and version
-  - Host requirements check result (Chapter 2)
-  - Planned `$LFS` storage target (VM disk first, then bare metal)
-  - Exact current section in Chapter 4
+- Read Chapter 5 introduction and understand why cross-compilation is essential
+- Start Chapter 5.1 (Binutils cross-compilation)
+- Answer checkpoint questions:
+  - What is the purpose of the temporary toolchain?
+  - Why do we build it as a separate user in isolation?
 
 ## Completed
 - Selected LFS version 13.0
@@ -38,13 +30,47 @@
 - Clarified that interactive shell (`fish`) is separate from system `/bin/sh` used by scripts
 - Diagnosed root cause: `/bin/sh` currently points to `dash`
 - Evaluated safe host options and narrowed recommendation to Ubuntu LTS or Debian stable in VM
+- Chosen safe workflow: VM-first on Ubuntu host before any bare-metal attempt
+- Completed Chapter 2.2 host requirement checks in VM with all items `OK`
+- Confirmed final alias status includes `sh is Bash`
+- Read Chapter 2.4 (Creating a New Partition)
+- Drafted partitioning command flow for `fdisk` (list disk, select disk, create partition, set swap type, write)
+- Reviewed VM partition table: host on first Linux filesystem, LFS swap plus dedicated LFS filesystem present
+- Prepared Chapter 2.5 formatting command template: `mkfs -v -t ext4 /dev/<LFS-partition>`
+- Prepared swap formatting command template: `mkswap /dev/<LFS-swap-partition>`
+- Completed Chapter 2.5: formatted LFS ext4 partition (`/dev/sda4`)
+- Completed Chapter 2.5: initialized swap partition (`/dev/sda3`)
+- Completed Chapter 2.6: set `LFS=/mnt/lfs` and verified `umask 022`
+- Completed Chapter 2.7: created `/mnt/lfs`, mounted `/dev/sda4`, and enabled swap on `/dev/sda3`
+- Reached Chapter 3.2 decision point: selecting easiest bulk-download workflow
+- Started Chapter 3.2 package download phase
+- Completed Chapter 3.2 bulk package download
+- Completed Chapter 3.3 integrity verification (`check.sh` completed without reported errors)
+- Confirmed flattened `sources` directory layout for package files
+- Completed Chapter 4.2: created `lfs` user and group with proper `/bin/bash` shell
+- Completed Chapter 4.3: set up directory structure at `$LFS` with `lfs` ownership and 755 permissions
+- Completed Chapter 4.4: created `.bash_profile` and `.bashrc` with LFS environment variables (`LC_ALL`, `LFS_TGT`, `PATH`, `CONFIG_SITE`, `MAKEFLAGS`)
+
+## Partition Notes
+- Show all partitions: `sudo fdisk -l`
+- Select target disk: `sudo fdisk /dev/sdX`
+- Create new partition: `n`
+- Change partition type: `t`
+- Select Linux swap type code: `19` (GPT `fdisk`)
+- Write changes: `w`
+- Quit without writing: `q`
+- Safety: replace `sdX` with the exact VM disk identifier before writing changes
+- Format LFS ext4 partition: `mkfs -v -t ext4 /dev/<LFS-partition>`
+- Format LFS swap partition: `mkswap /dev/<LFS-swap-partition>`
 
 ## Next Milestones
-- Finish quick skim of Chapter 1.1 (How to Build an LFS System)
-- Complete Chapter 2 host validation
-- Complete Chapter 3 package and patch preparation
-- Complete Chapter 4 final preparations
-- Start Chapter 5 temporary toolchain
+- Understand cross-compilation concept and why isolation matters
+- Build Binutils 2.42 cross-tool (Chapter 5.1)
+- Build GCC 13.3.0 stage 1 cross-compiler (Chapter 5.2)
+- Build Linux kernel headers (Chapter 5.3)
+- Build Glibc 2.39 (Chapter 5.4)
+- Complete Chapter 5 temporary toolchain, then Chapter 6 temporary system
+- Enter chroot (Chapter 7) and build final LFS system (Chapter 8)
 
 ## Risks To Watch
 - Mixing instructions from different LFS versions
