@@ -9,15 +9,15 @@
 
 ## Current Position
 - Phase: Toolchain Build
-- Book location: Chapter 5
-- Immediate focus: Start Chapter 5 temporary toolchain build (cross-compilation)
+- Book location: Chapter 6
+- Immediate focus: Start Chapter 6 temporary tools build sequence
 
 ## Current Tasks
-- Read Chapter 5 introduction and understand why cross-compilation is essential
-- Start Chapter 5.1 (Binutils cross-compilation)
+- Read Chapter 6.1 introduction and confirm build-order discipline
+- Start Chapter 6 package sequence from the first package in order
 - Answer checkpoint questions:
-  - What is the purpose of the temporary toolchain?
-  - Why do we build it as a separate user in isolation?
+  - Why does package order in Chapter 6 matter?
+  - What would indicate host contamination during temporary tools builds?
 
 ## Completed
 - Selected LFS version 13.0
@@ -50,6 +50,10 @@
 - Completed Chapter 4.2: created `lfs` user and group with proper `/bin/bash` shell
 - Completed Chapter 4.3: set up directory structure at `$LFS` with `lfs` ownership and 755 permissions
 - Completed Chapter 4.4: created `.bash_profile` and `.bashrc` with LFS environment variables (`LC_ALL`, `LFS_TGT`, `PATH`, `CONFIG_SITE`, `MAKEFLAGS`)
+- Completed Chapter 5.2: GCC stage 1 cross-compiler
+- Completed Chapter 5.3: Linux API Headers
+- Completed Chapter 5.1-5.x cross-toolchain sequence
+- Completed Chapter 5 (Compiling a Cross-Toolchain)
 
 ## Partition Notes
 - Show all partitions: `sudo fdisk -l`
@@ -64,13 +68,9 @@
 - Format LFS swap partition: `mkswap /dev/<LFS-swap-partition>`
 
 ## Next Milestones
-- Understand cross-compilation concept and why isolation matters
-- Build Binutils 2.42 cross-tool (Chapter 5.1)
-- Build GCC 13.3.0 stage 1 cross-compiler (Chapter 5.2)
-- Build Linux kernel headers (Chapter 5.3)
-- Build Glibc 2.39 (Chapter 5.4)
-- Complete Chapter 5 temporary toolchain, then Chapter 6 temporary system
-- Enter chroot (Chapter 7) and build final LFS system (Chapter 8)
+- Complete Chapter 6 temporary tools
+- Enter chroot (Chapter 7)
+- Complete Chapter 8 final system build
 
 ## Risks To Watch
 - Mixing instructions from different LFS versions
