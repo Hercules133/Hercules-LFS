@@ -10,12 +10,12 @@
 ## Current Position
 - Phase: Toolchain Build
 - Book location: Chapter 8
-- Immediate focus: Begin the final system build inside the chroot
+- Immediate focus: Continue Chapter 8 at section 8.5.2
 
 ## Current Tasks
-- Read Chapter 8 introduction and review the final-system build order
-- Start Chapter 8 with the first package in sequence
-- Keep an eye on dependencies and build-order discipline inside chroot
+- Execute and verify section 8.5.2
+- Continue Glibc sequence in strict section order after 8.5.2
+- Confirm environment remains cleanly inside chroot before each package build
 
 ## Completed
 - Selected LFS version 13.0
@@ -55,6 +55,7 @@
 - Completed Chapter 6 temporary tools build
 - Completed Chapter 7 chroot setup and entry
 - Completed Chapter 7 (Entering Chroot and Building the Final System Environment)
+- Completed Chapter 8 through section 8.5.1
 
 ## Partition Notes
 - Show all partitions: `sudo fdisk -l`
@@ -69,6 +70,8 @@
 - Format LFS swap partition: `mkswap /dev/<LFS-swap-partition>`
 
 ## Next Milestones
+- Complete Chapter 8.5 (Glibc)
+- Reach first post-Glibc package in Chapter 8
 - Complete Chapter 8 final system build
 
 ## Risks To Watch
